@@ -1,18 +1,21 @@
 const make_transactions_list = (arr, id) => {
   let transactions_list = [];
   arr.forEach((transaction) => {
-    console.log(transaction.from_id)
     if (transaction.from_id.equals(id)) {
       transactions_list.push({
         mode: "debit",
         currentAmount: transaction.snd_BankBalance,
         previousAmount: transaction.snd_BankBalance + transaction.amount,
+        amount : transaction.amount,
+        to_phoneNumber : transaction.to_phoneNumber
       });
     } else {
       transactions_list.push({
         mode: "credit",
-        currentAmount: transaction.snd_BankBalance,
-        previousAmount: transaction.snd_BankBalance - transaction.amount,
+        currentAmount: transaction.rec_BankBalance,
+        previousAmount: transaction.rec_BankBalance - transaction.amount,
+        amount: transaction.amount,
+        to_phoneNumber: transaction.from_phoneNumber,
       });
     }
   });
@@ -42,7 +45,7 @@ const cashback_helper = (amount, bankBalance) => {
       cashbackAmount +
       ", Cashback has been credited to your account" +
       ", Available Bank Balance: " +
-      bankBalance;
+      bankBalance + cashbackAmount;
   } else if (amount > 1000) {
     cashbackAmount = amount * 0.02;
     msg =
@@ -50,7 +53,7 @@ const cashback_helper = (amount, bankBalance) => {
       cashbackAmount +
       ", Cashback has been credited to your account" +
       ", Available Bank Balance: " +
-      bankBalance;
+      bankBalance + cashbackAmount;
   }
   return { msg, cashbackAmount };
 };

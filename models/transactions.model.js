@@ -11,6 +11,14 @@ const transactionSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
+    to_phoneNumber: {
+        required: true,
+        type: String
+    },
+    from_phoneNumber: {
+        required: true,
+        type: String
+    },
     amount: {
         required: true,
         type: Number
