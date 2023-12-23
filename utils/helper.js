@@ -1,11 +1,18 @@
 const make_transactions_list = (arr, id) => {
   let transactions_list = [];
   arr.forEach((transaction) => {
+    let cashbackAmount;
+    if(transaction.amount%500 === 0)
+      cashbackAmount = 0
+    else if(transaction.amount<1000)
+      cashbackAmount = 0.05*transaction.amount
+    else if(transaction.amount > 1000)
+      cashbackAmount = 0.02*transaction.amount
     if (transaction.from_id.equals(id)) {
       transactions_list.push({
         mode: "debit",
         currentAmount: transaction.snd_BankBalance,
-        previousAmount: transaction.snd_BankBalance + transaction.amount,
+        previousAmount: transaction.snd_BankBalance + transaction.amount - cashbackAmount,
         amount : transaction.amount,
         to_phoneNumber : transaction.to_phoneNumber
       });
