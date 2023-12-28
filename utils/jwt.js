@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken")
-const JWT_SECRET = require("../constants")
+const {JWT_SECRET} = require("../constants")
 
 const generateToken = (data) => {
-    return jwt.sign(data,`${JWT_SECRET}`);
+    return jwt.sign(data,JWT_SECRET);
 }
 
 const checkValidToken = (req, res, next) => {
